@@ -1,0 +1,23 @@
+<!doctype html>
+<title>Brian Morel's Todo Web App</title>
+<h1>Brian Morel's Todo Web App</h1>
+<h2> Todos </h2>
+<ul>
+    {% for todo in todos %}
+        <li>
+            <input type="checkbox" name="complete" {% if todo.complete %} checked {% endif %} disabled>
+            {{todo.name}}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{{ url_for('edit', index=loop.index0) }}">Edit</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{{url_for('delete', index=loop.index0) }}">Delete</a>
+            
+            <ul><li>{{todo.desc}}</li></ul>
+    {% endfor %}
+</ul>
+<h2> Add a new Todo with the below form </h2>
+<form action="{{ url_for('add') }}" method="post">
+    Todo Name: <input type="text", name="name"><br>
+    Todo Description: <input type="text", name="desc", size="200"><br>
+    <button type="submit">Add Todo</button>
+</form>
